@@ -5,7 +5,6 @@ import java.util.ArrayList;
 public class Hand {
     private final int MAX_SIZE_HAND = 10;
     private ArrayList<Card> hand;
-    private Card addCard;
 
     public Hand(String handDeck) {
         if (handDeck.length() != MAX_SIZE_HAND) {
@@ -26,5 +25,10 @@ public class Hand {
         }
         return hand.get(i-1);
     };
+
+    public int getScore(){
+        CalculateScore score = new CalculateScore(hand);
+        return score.getScore();
+    }
 
 }

@@ -45,5 +45,4 @@ public class ParseHandTest {
                 () -> assertEquals(Suite.DIAMONDS, card.suite())
         );
     }
-
 }

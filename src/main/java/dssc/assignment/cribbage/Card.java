@@ -1,14 +1,16 @@
 package dssc.assignment.cribbage;
 
 public class Card {
-    String card;
+    private Rank rank;
+    private Suite suite;
 
     public Card(String card) {
-        this.card = card;
+        rank = getRank(card.charAt(0));
+        suite = getSuite(card.charAt(1));
     }
 
-    public Rank rank() {
-        switch (card.toUpperCase().charAt(0)) {
+    public Rank getRank(char numberChar) {
+        switch (Character.toUpperCase(numberChar)) {
             case 'A':
                 return Rank.ACE;
             case '2':
@@ -40,8 +42,8 @@ public class Card {
         }
     }
 
-    public Suite suite() {
-        switch (card.toUpperCase().charAt(1)) {
+    public Suite getSuite(char charSuite) {
+        switch (Character.toUpperCase(charSuite)) {
             case 'H':
                 return Suite.HEART;
             case 'D':
@@ -53,5 +55,11 @@ public class Card {
             default:
                 return null;
         }
+    }
+    public Suite suite(){
+        return suite;
+    }
+    public int rank(){
+        return rank.getRank();
     }
 }
