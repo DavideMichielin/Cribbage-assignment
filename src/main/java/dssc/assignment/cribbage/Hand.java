@@ -12,21 +12,23 @@ public class Hand {
             System.exit(2);
         } else {
             hand = new ArrayList<>();
-            for(int i=0; i < MAX_SIZE_HAND; i += 2 ){
-                String card = ""+handDeck.charAt(i)+handDeck.charAt(i+1);
+            for (int i = 0; i < MAX_SIZE_HAND; i += 2) {
+                String card = "" + handDeck.charAt(i) + handDeck.charAt(i + 1);
                 hand.add(CardParser.parseCard(card));
             }
         }
     }
 
-    public Card getCard(int i){
-        if(i > 4 && i < 0){
+    public Card getCard(int i) {
+        if (i > 4 && i < 0) {
             return null;
         }
-        return hand.get(i-1);
-    };
+        return hand.get(i - 1);
+    }
 
-    public int getScore(){
+    ;
+
+    public int getScore() {
         CalculateScore score = new CalculateScore(hand);
         return score.getScore();
     }

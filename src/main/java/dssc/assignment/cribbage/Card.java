@@ -56,13 +56,16 @@ public class Card {
                 return null;
         }
     }
-    public Suite suite(){
+
+    public Suite suite() {
         return suite;
     }
-    public int rank(){
+
+    public int rank() {
         return rank.getRank();
     }
-    public void setRank(int rank){
+
+    public void setRank(int rank) {
 
     }
 }

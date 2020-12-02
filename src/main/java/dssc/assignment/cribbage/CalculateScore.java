@@ -11,7 +11,7 @@ public class CalculateScore {
     }
 
     public int getScore() {
-        return  flush() + pairs() + runs()+ fif_twos();
+        return flush() + pairs() + runs() + fif_twos();
     }
 
     private int[] orderCard(ArrayList<Card> hand) {
@@ -57,11 +57,10 @@ public class CalculateScore {
         int best = 0;
         int[] orderedHand = orderCard(hand);
         for (int i = 0; i < hand.size() - 1; i++) {
-            System.out.println(orderedHand[i]);
-            if (orderedHand[i] == orderedHand[i+1]) {
+            if (orderedHand[i] == orderedHand[i + 1]) {
                 count++;
                 if (count > best) best = count;
-            } else{
+            } else {
                 count = 1;
             }
         }
@@ -100,32 +99,31 @@ public class CalculateScore {
                 return 0;
         }
     }
-    private int combinationsGiveFifteen(int[] convertedHand) {
-        int count = 0;
-        int sum = 0;
-        for(int i=0; i < convertedHand.length-1; i++){
-            sum = convertedHand[i];
-            for(int j=i+1; j < convertedHand.length; j++){
-                sum+= convertedHand[j];
-                if (sum == 15){
-                    System.out.println("incremento count "+i+" "+j);
-                    count++;
-                    sum = convertedHand[i];
-                } else if(sum > 15){
-                    sum = convertedHand[i];
-                }
+
+
+    private int count = 0;
+
+    int subsetSums(int[] arr, int l,
+                   int r, int sum) {
+        // Print current subset
+        if (l > r) {
+            if (sum == 15) {
+                count++;
             }
+        } else {
+            // Subset including arr[l]
+            subsetSums(arr, l + 1, r,
+                    sum + arr[l]);
+
+            // Subset excluding arr[l]
+            subsetSums(arr, l + 1, r, sum);
         }
         return count;
     }
+
     private int fif_twos() {
-
         int[] convertedHand = convert(hand);
-        int score = combinationsGiveFifteen(convertedHand);
-        return score*2;
+        int score = subsetSums(convertedHand, 0, convertedHand.length - 1, 0);
+        return score * 2;
     }
-
-
-
-
 }
