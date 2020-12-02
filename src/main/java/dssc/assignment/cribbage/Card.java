@@ -29,7 +29,7 @@ public class Card {
                 return Rank.EIGHT;
             case '9':
                 return Rank.NINE;
-            case 'T':
+            case '0':
                 return Rank.TEN;
             case 'J':
                 return Rank.JACK;
@@ -61,5 +61,8 @@ public class Card {
     }
     public int rank(){
         return rank.getRank();
+    }
+    public void setRank(int rank){
+
     }
 }

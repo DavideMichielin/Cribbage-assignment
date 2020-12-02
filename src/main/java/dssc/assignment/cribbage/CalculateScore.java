@@ -11,7 +11,25 @@ public class CalculateScore {
     }
 
     public int getScore() {
-        return flush() + pairs() + runs() + fif_twos();
+        return  flush() + pairs() + runs()+ fif_twos();
+    }
+
+    private int[] orderCard(ArrayList<Card> hand) {
+        int[] ordered = new int[5];
+        for (int i = 0; i < hand.size(); i++) {
+            ordered[i] = hand.get(i).rank();
+        }
+        Arrays.sort(ordered);
+        return ordered;
+    }
+
+    private int[] convert(ArrayList<Card> hand) {
+        int[] converted = new int[hand.size()];
+        for (int i = 0; i < hand.size(); i++) {
+            converted[i] = hand.get(i).rank();
+            if (converted[i] > 10) converted[i] = 10;
+        }
+        return converted;
     }
 
     private int flush() {
@@ -35,18 +53,24 @@ public class CalculateScore {
     }
 
     private int pairs() {
-        int count = 0;
+        int count = 1;
+        int best = 0;
+        int[] orderedHand = orderCard(hand);
         for (int i = 0; i < hand.size() - 1; i++) {
-            if (hand.get(i).rank() == hand.get(i + 1).rank()) {
+            System.out.println(orderedHand[i]);
+            if (orderedHand[i] == orderedHand[i+1]) {
                 count++;
+                if (count > best) best = count;
+            } else{
+                count = 1;
             }
         }
-        switch (count) {
-            case 1:
-                return 2;
+        switch (best) {
             case 2:
-                return 6;
+                return 2;
             case 3:
+                return 6;
+            case 4:
                 return 12;
             default:
                 return 0;
@@ -76,17 +100,32 @@ public class CalculateScore {
                 return 0;
         }
     }
-
-    private int[] orderCard(ArrayList<Card> hand) {
-        int[] ordered = new int[5];
-        for (int i = 0; i < hand.size(); i++) {
-            ordered[i] = hand.get(i).rank();
+    private int combinationsGiveFifteen(int[] convertedHand) {
+        int count = 0;
+        int sum = 0;
+        for(int i=0; i < convertedHand.length-1; i++){
+            sum = convertedHand[i];
+            for(int j=i+1; j < convertedHand.length; j++){
+                sum+= convertedHand[j];
+                if (sum == 15){
+                    System.out.println("incremento count "+i+" "+j);
+                    count++;
+                    sum = convertedHand[i];
+                } else if(sum > 15){
+                    sum = convertedHand[i];
+                }
+            }
         }
-        Arrays.sort(ordered);
-        return ordered;
+        return count;
+    }
+    private int fif_twos() {
+
+        int[] convertedHand = convert(hand);
+        int score = combinationsGiveFifteen(convertedHand);
+        return score*2;
     }
 
-    private int fif_twos() {
-        return 0;
-    }
+
+
+
 }
