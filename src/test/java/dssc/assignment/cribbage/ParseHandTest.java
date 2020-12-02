@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ParseHandTest {
     @Test
-    void parseOneCard() {
+    void parseOneCardHeart() {
         Card card = CardParser.parseCard("5H");
         assertAll(
                 () -> assertEquals(Rank.FIVE, card.rank()),
@@ -35,4 +35,15 @@ public class ParseHandTest {
                 () -> assertEquals(Suite.CLUBS, card.suite())
         );
     }
+
+    @Test
+    void getOneCardFromHand() {
+        Hand h = new Hand("5H5D5SJC5C");
+        Card card = h.getCard(2);
+        assertAll(
+                () -> assertEquals(Rank.FIVE, card.rank()),
+                () -> assertEquals(Suite.DIAMONDS, card.suite())
+        );
+    }
+
 }
